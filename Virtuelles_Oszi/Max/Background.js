@@ -8,12 +8,13 @@ function newBackground(){
     //grauer Hintergrund "Horizontal" Etage 1 links, "Push for Fine" & Sinuskurven
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle="lightgrey";
-    ctx.fillRect(680,5,400,160);
+    ctx.fillRect(680,5,300,160);
     ctx.fillStyle="black";
     ctx.font = "18px Arial";
     ctx.fillText("Horizontal",685,20);
     ctx.font = "9px Arial";
     ctx.fillText("Push for Fine",700,150);
+    ctx.fillText("Push to Zero",875,110);
   
   
    //Sinuskurven oben links und unten
@@ -46,11 +47,11 @@ function newBackground(){
     ctx.stroke();
   
     //bei den einzelnen Kanälen
-    counter = 0, x=710,y=500;
+    counter = 0, x=690,y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=710;
+    x+=690;
     y=  500 - Math.sin(counter)*5;
     counter += increase;
     ctx.lineTo(x,y);
@@ -58,23 +59,23 @@ function newBackground(){
     ctx.stroke();
   
   
-    counter = 0, x=775,y=500;
+    counter = 0, x=755,y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=775;
+    x+=755;
     y=  500 - Math.sin(counter)*10;
     counter += increase;
     ctx.lineTo(x,y);
     }
     ctx.stroke();
   
-  
-    counter = 0, x=885,y=500;
+    //kanal2
+    counter = 0, x=795,y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=885;
+    x+=795;
     y=  500 - Math.sin(counter)*5;
     counter += increase;
     ctx.lineTo(x,y);
@@ -82,23 +83,23 @@ function newBackground(){
     ctx.stroke();
   
   
-    counter = 0, x=950, y=500;
+    counter = 0, x=855, y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=950;
+    x+=855;
     y=  500 - Math.sin(counter)*10;
     counter += increase;
     ctx.lineTo(x,y);
     }
     ctx.stroke();
   
-  
-    counter = 0, x=1060,y=500;
+    //kanal3
+    counter = 0, x=890,y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=1060;
+    x+=890;
     y=  500 - Math.sin(counter)*5;
     counter += increase;
     ctx.lineTo(x,y);
@@ -106,23 +107,23 @@ function newBackground(){
     ctx.stroke();
   
   
-    counter = 0, x=1125,y=500;
+    counter = 0, x=955,y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=1125;
+    x+=955;
     y=  500 - Math.sin(counter)*10;
     counter += increase;
     ctx.lineTo(x,y);
     }
     ctx.stroke();
   
-  
-    counter = 0, x=1235,y=500;
+    //kanal 4
+    counter = 0, x=990,y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=1235;
+    x+=990;
     y=  500 - Math.sin(counter)*5;
     counter += increase;
     ctx.lineTo(x,y);
@@ -130,11 +131,11 @@ function newBackground(){
     ctx.stroke();
   
   
-    counter = 0, x=1300,y=500;
+    counter = 0, x=1055,y=500;
     for(i=0; i<=18; i+=1/2){
     ctx.moveTo(x,y);
     x = i;
-    x+=1300;
+    x+=1055;
     y=  500 - Math.sin(counter)*10;
     counter += increase;
     ctx.lineTo(x,y);
@@ -144,80 +145,75 @@ function newBackground(){
   
     // "Run Control Etage 1 rechts"
     ctx.fillStyle="lightgrey";
-    ctx.fillRect(1100,10,50,10);
-    ctx.fillRect(1265,10,50,10);
+    ctx.fillRect(1000,10,15,10);
+    ctx.fillRect(1135,10,15,10);
     ctx.fillStyle="black";
     ctx.font = "18px Arial";
-    ctx.fillText("Run Control",1160,20);
+    ctx.fillText("Run Control",1025,20);
    
   
     // "Trigger" Etage 2 links mit "Push for 50%" & "Level"
     ctx.fillStyle="lightgrey";
-    ctx.fillRect(690,175,70,10);
-    ctx.fillRect(840,175,70,10);
+    ctx.fillRect(680,175,70,10);
+    ctx.fillRect(830,175,70,10);
     ctx.fillStyle="black";
     ctx.font = "18px Arial";
-    ctx.fillText("Trigger",770,185);
+    ctx.fillText("Trigger",760,185);
     ctx.font = "9px Arial";
-    ctx.fillText("Push for 50%",790,210);
+    ctx.fillText("Push for 50%",760,210);
     ctx.font = "12px Arial";
-    ctx.fillText("Level",805,270);
+    ctx.fillText("Level",775,270);
   
   
     // "Measure" Etage 2 mittig mit "Push to Select"
     ctx.fillStyle="lightgrey";
-    ctx.fillRect(950,175,40,10);
-    ctx.fillRect(1080,175,40,10);
+    ctx.fillRect(940,175,40,10);
+    ctx.fillRect(1070,175,40,10);
     ctx.fillStyle="black";
     ctx.font = "18px Arial";
-    ctx.fillText("Measure",1000,185);
+    ctx.fillText("Measure",990,185);
     ctx.font = "9px Arial";
-    ctx.fillText("Push to Select",1055,210);
+    ctx.fillText("Push to Select",1035,210);
     ctx.font = "12px Arial";
-    ctx.fillText("Cursors",1075,270);
+    ctx.fillText("Cursors",1040,270);
   
   
     // Dunkelgraue Box Etage 3 links mit "Push to Zero" und "Intensity"
     ctx.fillStyle="grey";
-    ctx.fillRect(690,250,70,150);
+    ctx.fillRect(680,250,70,150);
     ctx.fillStyle="black";
     ctx.font = "9px Arial";
-    ctx.fillText("Push to Zero",695,305);
-    ctx.fillText("Intensity",715,390);
+    ctx.fillText("Push to Zero",688,305);
+    ctx.fillText("Intensity",698,390);
   
   
     // "Tools", "Waveform", "File" Etage 3 mittig
     ctx.fillStyle="lightgrey";
-    ctx.fillRect(770,290,40,10);
-    ctx.fillRect(870,290,40,10);
-    ctx.fillRect(950,290,35,10);
-    ctx.fillRect(1085,290,35,10);
-    ctx.fillRect(950,345,60,10);
-    ctx.fillRect(1060,345,60,10);
-    ctx.fillRect(925,300,5,90);
+    ctx.fillRect(760,290,40,10);
+    ctx.fillRect(860,290,40,10);
+    ctx.fillRect(940,290,35,10);
+    ctx.fillRect(1075,290,35,10);
+    ctx.fillRect(940,345,60,10);
+    ctx.fillRect(1050,345,60,10);
+    ctx.fillRect(915,300,5,90);
     ctx.fillStyle="black";
     ctx.font = "18px Arial";
-    ctx.fillText("Tools",818,300);
-    ctx.fillText("Waveform",995,300);
-    ctx.fillText("File",1020,355);
+    ctx.fillText("Tools",808,300);
+    ctx.fillText("Waveform",985,300);
+    ctx.fillText("File",1010,355);
   
   
     //"Vertical" Etage 4, "Push for Fine", "Push to Zero"
     ctx.fillStyle="lightgrey";
-    ctx.fillRect(700,415,250,10);
-    ctx.fillRect(1060,415,250,10);
+    ctx.fillRect(680,415,185,10);
+    ctx.fillRect(965,415,185,10);
     ctx.fillStyle="black";
     ctx.font = "18px Arial";
-    ctx.fillText("Vertical",975,425);
+    ctx.fillText("Vertical",890,425);
     ctx.font = "9px Arial";
-    ctx.fillText("Push for Fine",810,465);
-    ctx.fillText("Push for Fine",1160,465);
-    ctx.fillText("Push to Zero",810,605);
-    ctx.fillText("Push to Zero",1160,605);
+    //ctx.fillText("Push for Fine",810,465);
+    //ctx.fillText("Push for Fine",1160,465);
+    ctx.fillText("Push to Zero",755,583);
+    ctx.fillText("Push to Zero",955,583);
   
 }
-  
-  
-  
-  
-    //for (let objekt of objekts) objekt.draw();  // Zeichnet alle pushten Objekte aus dem Array in das Canvas
