@@ -296,7 +296,7 @@ class EckigerButton {
 
 //------------- Taster ----------------
 class EckigerTaster {
-  constructor(name,id,posX,posY,widthX,widthY,ctx,klickfunktion,fillstyle,fillstyle2,description){
+  constructor(name,id,posX,posY,widthX,widthY,ctx,klickfunktion,fillstyle,fillstyle2,description,color){
     this.name = name;
     this.id = id;
     this.posX = posX;
@@ -310,6 +310,7 @@ class EckigerTaster {
     this.description = description;
     this.hasFocus = false;
     this.clicked = false;
+    this.color = false;
   }
   //--------------------
   HasFocus(xmouse,ymouse){
@@ -319,24 +320,16 @@ class EckigerTaster {
     return this.hasFocus;
   } 
   //-------------------
-  Clicked(){
-    const taster = this.id;
-      taster.onmousedown = function() {
-        console.log('Der Button wurde gedrückt!');
-      }
-      this.draw();
-      
-    
-  }
-      
-
-  /*Clicked(){
-    var elem = document.getElementByClass("EckigerTaster");
-    elem.addEventListener("mousedown", mouseDown);
-    elem.addEventListener("mouseup", mouseUp);	
+  mousegedrueckt(){
+    this.color = true;
     this.draw();
-  }*/
-  	
+  }
+  mouseloslassen(){
+    this.color = false;
+    this.draw();
+  }
+  
+  
 
   
   //------------------------------------------
@@ -346,8 +339,13 @@ class EckigerTaster {
     let fillstyle2=this.fillstyle2;
     ctx.fillStyle = fillstyle;
   
-    if(this.clicked){  
+    if(this.color == true){  
       ctx.fillStyle = fillstyle2;
+      console.log("is da");
+    }
+    if(this.color == false){
+      ctx.fillstyle = fillstyle;
+      console.log("is net da");
     }
 
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
@@ -360,15 +358,41 @@ class EckigerTaster {
 
 
 //-------------------- Sammel Klasse-----------------
+/*class events{
+  constuctor(){
+    this.events = {}
+  }
+  //--------------
+  addEvent(Taster, this.name){
+    if (!this.events[Taster]) {
+      this.events[Taster] = [];
+    }
+    this.events[Taster].push(this.name);
+  }
+  addEvent(Knopf, this.name){
+    if (!this.events[Knopf]) {
+      this.events[Knopf] = [];
+    }
+    this.events[Knopf].push(this.name);
+  }
+  addEvent(Drehknopf, this.name){
+    if (!this.events[Drehknopf]) {
+      this.events[Drehknopf] = [];
+    }
+    this.events[Drehknopf].push(this.name);
+  }
 
 
-
-
-
-
-
-
-
+  document.addEventListener('Taster', function(event) {
+  console.log('Nachricht:', event.detail.message);
+  });
+  document.addEventListener('Knopf', function(event) {
+  console.log('Nachricht:', event.detail.message);
+  });
+  document.addEventListener('Drehknopf', function(event) {
+    console.log('Nachricht:', event.detail.message);
+  });
+}*/
 
 
 //NewElement erstellt ein neues Objekt, welches ausgewählt und gedreht werden kann
@@ -381,6 +405,7 @@ function newElement(){
 
  // Verwendete Canvas-Größe: 1200 * 650
   var objekts = []; // g einfügen zum zeigen
+  var tasters = [];
 
   objekts.push(new NormalRotateButton("Triggerlevel",790,240,15, 1, 0, 3,ctx,true,-100,100)); // Triggerlevel Drehknopf
   objekts.push(new NormalRotateButton("Cursors",1060,240,15, 1, 0, 4,ctx,true,-100,100)); //Curser Drehknopf
@@ -406,7 +431,7 @@ function newElement(){
   objekts.push(new AchsenSkalierungButton("K41",1030,465,30, 1, 0,ctx,0,e,10**-3,5,"v",5));// großer Drehknopf Kanal 4
 
   //Horizontal
-  objekts.push(new EckigerTaster("Horizontal","Horizontal",770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));
+  tasters.push(new EckigerTaster("Horizontal",'Horizontal',770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));
   objekts.push(new EckigerButton("Search",770, 70, 60, 30, ctx, true,"darkgrey","grey","Search"));
   objekts.push(new EckigerButton("Navigation",770, 110, 60, 30, ctx, true,"darkgrey","grey","Navigation"));
   //Run Control
@@ -443,7 +468,7 @@ function newElement(){
 
 
   for (let objekt of objekts) objekt.draw();  // Zeichnet alle pushten Objekte aus dem Array in das Canvas
-
+  for (let taster of tasters) taster.draw();  // 
 
 
   //Event-Listener
@@ -451,7 +476,8 @@ function newElement(){
   canvas.addEventListener('keydown', TasteGedrueckt, false);
   canvas.addEventListener('wheel', MausDrehen, false);
   canvas.addEventListener('click', DrehknopfKlick, false);
-  
+  canvas.addEventListener('mousedown', mousedown, false);
+  canvas.addEventListener('mouseup', mouseup, false);
 
   //Ausgabe der aktuellen Cursor Positionf
   function Fokus(evt) {
@@ -482,10 +508,27 @@ function newElement(){
   function DrehknopfKlick (evt){
     for ( let objekt of objekts){
       if( objekt.HasFocus(XposMouse,YposMouse,ctx))
-        objekt.Clicked(evt);
-      }    
+      objekt.Clicked(evt);
+    }    
   }
+  //--------- taster funktion-----------
+  function mousedown (evt){
+    for (let taster of tasters){
+      if( taster.HasFocus(XposMouse,YposMouse,ctx))
+        taster.mousegedrueckt(evt);
+    }
+  }
+  function mouseup (evt){
+    for (let taster of tasters){
+      if( taster.HasFocus(XposMouse,YposMouse,ctx))
+        taster.mouseloslassen(evt);
+
+      }
+  } 
+  
 }
+
+
 
 function SiPraefix(basis,exponent){
   var siPraefix = ["p","n","µ","m","","K","M","G"];
@@ -507,11 +550,3 @@ function GetBasisExponent(zahl){
   return array;
 }
 
-//------------------------------------------------------------------------------
-function start() {
-  document.querySelector('#this.id').onclick = klickverarbeitung;
-}
-
-function klickverarbeitung() {
-  console.log('this.name ist geclickt');
-}
