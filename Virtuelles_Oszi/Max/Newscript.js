@@ -296,9 +296,8 @@ class EckigerButton {
 
 //------------- Taster ----------------
 class EckigerTaster {
-  constructor(name,id,posX,posY,widthX,widthY,ctx,klickfunktion,fillstyle,fillstyle2,description,color){
+  constructor(name,posX,posY,widthX,widthY,ctx,klickfunktion,fillstyle,fillstyle2,description,color){
     this.name = name;
-    this.id = id;
     this.posX = posX;
     this.posY = posY;
     this.widthX = widthX;
@@ -341,11 +340,11 @@ class EckigerTaster {
   
     if(this.color == true){  
       ctx.fillStyle = fillstyle2;
-      console.log("is da");
+      console.log(this.name+ " ist da");
     }
     if(this.color == false){
       ctx.fillstyle = fillstyle;
-      console.log("is net da");
+      console.log(this.name+ " ist net da");
     }
 
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
@@ -431,40 +430,40 @@ function newElement(){
   objekts.push(new AchsenSkalierungButton("K41",1030,465,30, 1, 0,ctx,0,e,10**-3,5,"v",5));// großer Drehknopf Kanal 4
 
   //Horizontal
-  tasters.push(new EckigerTaster("Horizontal",'Horizontal',770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));
-  objekts.push(new EckigerButton("Search",770, 70, 60, 30, ctx, true,"darkgrey","grey","Search"));
-  objekts.push(new EckigerButton("Navigation",770, 110, 60, 30, ctx, true,"darkgrey","grey","Navigation"));
+  tasters.push(new EckigerTaster("Horizontal",770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));
+  tasters.push(new EckigerTaster("Search",770, 70, 60, 30, ctx, true,"darkgrey","grey","Search"));
+  tasters.push(new EckigerTaster("Navigation",770, 110, 60, 30, ctx, true,"darkgrey","grey","Navigation"));
   //Run Control
   objekts.push(new EckigerButton("Run Stop",1000, 30, 65, 30, ctx, true,"lightgreen","red","Run Stop"));//
   objekts.push(new EckigerButton("Single",1085, 30, 65, 30, ctx, true,"darkgrey","yellow","Single"));//
-  objekts.push(new EckigerButton("Default Setup",1000, 70, 65, 30, ctx, true,"darkgrey","grey","Default Setup"));
+  tasters.push(new EckigerTaster("Default Setup",1000, 70, 65, 30, ctx, true,"darkgrey","grey","Default Setup"));
   objekts.push(new EckigerButton("Autoscale",1085, 70, 65, 30, ctx, true,"darkgrey","lightgreen","Autoscale"));//
   //Trigger
-  objekts.push(new EckigerButton("Trigger",680, 190, 60, 30, ctx, true,"darkgrey","grey","Trigger"));
-  objekts.push(new EckigerButton("Force Trigger",825, 190, 75, 30, ctx, true,"darkgrey","grey","Force Trigger"));
-  objekts.push(new EckigerButton("Mode Coupling",825, 240, 75, 30, ctx, true,"darkgrey","grey","Mode Coupling"));
+  tasters.push(new EckigerTaster("Trigger",680, 190, 60, 30, ctx, true,"darkgrey","grey","Trigger"));
+  tasters.push(new EckigerTaster("Force Trigger",825, 190, 75, 30, ctx, true,"darkgrey","grey","Force Trigger"));
+  tasters.push(new EckigerTaster("Mode Coupling",825, 240, 75, 30, ctx, true,"darkgrey","grey","Mode Coupling"));
   //Measure
-  objekts.push(new EckigerButton("Cursors",940, 190, 60, 30, ctx, true,"darkgrey","grey","Cursors"));
-  objekts.push(new EckigerButton("Meas",940, 240, 60, 30, ctx, true,"darkgrey","grey","Meas"));
+  tasters.push(new EckigerTaster("Cursors",940, 190, 60, 30, ctx, true,"darkgrey","grey","Cursors"));
+  tasters.push(new EckigerTaster("Meas",940, 240, 60, 30, ctx, true,"darkgrey","grey","Meas"));
   //Tools
-  objekts.push(new EckigerButton("Utility",760, 305, 60, 30, ctx, true,"darkgrey","grey","Utility"));
+  tasters.push(new EckigerTaster("Utility",760, 305, 60, 30, ctx, true,"darkgrey","grey","Utility"));
   objekts.push(new EckigerButton("Wave Gen",760, 355, 60, 30, ctx, true,"darkgrey","blue","Wave Gen"));//
-  objekts.push(new EckigerButton("Quick Action",840, 305, 60, 30, ctx, true,"darkgrey","grey","Quick Action"));
-  objekts.push(new EckigerButton("Analyze",840, 355, 60, 30, ctx, true,"darkgrey","grey","Analyze"));
+  tasters.push(new EckigerTaster("Quick Action",840, 305, 60, 30, ctx, true,"darkgrey","grey","Quick Action"));
+  tasters.push(new EckigerTaster("Analyze",840, 355, 60, 30, ctx, true,"darkgrey","grey","Analyze"));
   //Waveform
-  objekts.push(new EckigerButton("Acquire",940, 305, 60, 30, ctx, true,"darkgrey","grey","Acquire"));
-  objekts.push(new EckigerButton("Display",1050, 305, 60, 30, ctx, true,"darkgrey","grey","Display"));
+  tasters.push(new EckigerTaster("Acquire",940, 305, 60, 30, ctx, true,"darkgrey","grey","Acquire"));
+  tasters.push(new EckigerTaster("Display",1050, 305, 60, 30, ctx, true,"darkgrey","grey","Display"));
   //File
-  objekts.push(new EckigerButton("Save Recall",940, 360, 60, 30, ctx, true,"darkgrey","grey","Save Recall"));
-  objekts.push(new EckigerButton("Print",1050, 360, 60, 30, ctx, true,"darkgrey","grey","Print"));
+  tasters.push(new EckigerTaster("Save Recall",940, 360, 60, 30, ctx, true,"darkgrey","grey","Save Recall"));
+  tasters.push(new EckigerTaster("Print",1050, 360, 60, 30, ctx, true,"darkgrey","grey","Print"));
   //Kanäle
   objekts.push(new EckigerButton("Kanal 1",720, 520, 20, 30, ctx, true,"lightgrey","yellow","1"));//
   objekts.push(new EckigerButton("Kanal 2",820, 520, 20, 30, ctx, true,"lightgrey","lightgreen","2"));//
   objekts.push(new EckigerButton("Kanal 3",920, 520, 20, 30, ctx, true,"lightgrey","lightblue","3"));//
   objekts.push(new EckigerButton("Kanal 4",1020, 520, 20, 30, ctx, true,"lightgrey","pink","4"));//
   //Help und Label
-  objekts.push(new EckigerButton("Label",1090, 450, 60, 30, ctx, true,"darkgrey","grey","Label"));
-  objekts.push(new EckigerButton("Help",1090, 500, 60, 30, ctx, true,"darkgrey","grey","Help"));
+  tasters.push(new EckigerTaster("Label",1090, 450, 60, 30, ctx, true,"darkgrey","grey","Label"));
+  tasters.push(new EckigerTaster("Help",1090, 500, 60, 30, ctx, true,"darkgrey","grey","Help"));
 
 
   for (let objekt of objekts) objekt.draw();  // Zeichnet alle pushten Objekte aus dem Array in das Canvas
