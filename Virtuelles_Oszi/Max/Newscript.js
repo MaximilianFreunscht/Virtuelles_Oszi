@@ -91,8 +91,16 @@ class RotationTickButton {
     //Innerer Kreis
     ctx.globalCompositeOperation = 'source-over';
     ctx.beginPath();
-    if(this.clicked){ctx.fillStyle = 'whitesmoke';console.log("clicked")}
-    else{ctx.fillStyle = 'white';}
+    if(this.clicked){
+      ctx.fillStyle = 'whitesmoke';
+      console.log("clicked")
+      dispatchEvent(new CustomEvent('drehkopf', {
+        detail:{name: this.name,wert: this.value},
+      }));
+
+    }
+    else{
+      ctx.fillStyle = 'white';}
     ctx.arc (0, 0,radius * 0.9, 0, Math.PI*2, false);
     ctx.fill();
 
@@ -237,6 +245,8 @@ class AbhängigerButton extends RotationTickButton{
     let bas_ex = GetBasisExponent(this.value);
     let ausgabe = SiPraefix(bas_ex[0],bas_ex[1]);
     console.log(this.name+" "+ausgabe[0]+ausgabe[1]);
+    dispatchEvent(new CustomEvent('Button aus', {detail:{name: this.name,},}));
+
   }
 }
 //---------------------------Knöpfe-----------------------------------------
@@ -281,10 +291,13 @@ class EckigerButton {
     if(!this.clicked){  
       ctx.fillStyle = fillstyle;
       console.log(this.name + " Is not clicked")
+      dispatchEvent(new CustomEvent('Button aus', {detail:{name: this.name,},}));
+
     }
     else{
       ctx.fillStyle = fillstyle2;
       console.log(this.name + " Is clicked")
+      dispatchEvent(new CustomEvent('Button an', {detail:{name: this.name,},}));
     }
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
     ctx.font = "10px Arial";
@@ -336,17 +349,13 @@ class EckigerTaster {
   
     if(this.color == true){  
       ctx.fillStyle = fillstyle2;
-      console.log(this.name+ " ist da");
+      dispatchEvent(new CustomEvent('Taster an', {detail:{name: this.name,},}));
     }
     if(this.color == false){
       ctx.fillstyle = fillstyle;
-      console.log(this.name+ " ist net da");
+      console.log(this.name+ " ist nicht da");
     }
     
-
-
-
-
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
     ctx.font = "10px Arial";
     ctx.fillStyle = "black";
@@ -357,33 +366,18 @@ class EckigerTaster {
 
 
 //-------------------- Sammel Klasse-----------------
-/*class events{
+class events{
   constuctor(){
     this.drehknopf = {};
     this.button = {};
     this.taster = {};
   }
   //--------------
-  addEvent(Taster, this.name){
-    if (!this.taster[Taster]) {
-      this.taster[Taster] = [];
-    }
-    this.taster[Taster].push(this.name);
-  }
-  addEvent(Knopf, this.name){
-    if (!this.button[Knopf]) {
-      this.button[Knopf] = [];
-    }
-    this.button[Knopf].push(this.name);
-  }
-  addEvent(Drehknopf, this.name){
-    if (!this.drehknopf[Drehknopf]) {
-      this.drehknopf[Drehknopf] = [];
-    }
-    this.drehknopf[Drehknopf].push(this.name);
-  }
-
-}*/
+  addEventListener('Taster an', (e) => console.log(e.detail.name+ " wurde gedrückt" ));
+  addEventListener('Button an', (e) => console.log(e.detail.name+ " wurde angeschalten" ));
+  addEventListener('Button aus', (e) => console.log(e.detail.name+ " wurde ausgeschaltet" ));
+  addEventListener('Drehknopf', (e) => console.log(e.detail.name+ " wurde auf " + e.detail.wert+ " gedreht"));
+}
 
 
 //NewElement erstellt ein neues Objekt, welches ausgewählt und gedreht werden kann
@@ -469,6 +463,8 @@ function newElement(){
   canvas.addEventListener('click', DrehknopfKlick, false);
   canvas.addEventListener('mousedown', mousedown, false);
   canvas.addEventListener('mouseup', mouseup, false);
+
+
 
   //Ausgabe der aktuellen Cursor Positionf
   function Fokus(evt) {
