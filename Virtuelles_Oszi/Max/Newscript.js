@@ -327,10 +327,6 @@ class EckigerTaster {
     this.color = false;
     this.draw();
   }
-  
-  
-
-  
   //------------------------------------------
   draw(){ 
     let ctx=this.ctx;
@@ -346,6 +342,10 @@ class EckigerTaster {
       ctx.fillstyle = fillstyle;
       console.log(this.name+ " ist net da");
     }
+    
+
+
+
 
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
     ctx.font = "10px Arial";
@@ -359,38 +359,30 @@ class EckigerTaster {
 //-------------------- Sammel Klasse-----------------
 /*class events{
   constuctor(){
-    this.events = {}
+    this.drehknopf = {};
+    this.button = {};
+    this.taster = {};
   }
   //--------------
   addEvent(Taster, this.name){
-    if (!this.events[Taster]) {
-      this.events[Taster] = [];
+    if (!this.taster[Taster]) {
+      this.taster[Taster] = [];
     }
-    this.events[Taster].push(this.name);
+    this.taster[Taster].push(this.name);
   }
   addEvent(Knopf, this.name){
-    if (!this.events[Knopf]) {
-      this.events[Knopf] = [];
+    if (!this.button[Knopf]) {
+      this.button[Knopf] = [];
     }
-    this.events[Knopf].push(this.name);
+    this.button[Knopf].push(this.name);
   }
   addEvent(Drehknopf, this.name){
-    if (!this.events[Drehknopf]) {
-      this.events[Drehknopf] = [];
+    if (!this.drehknopf[Drehknopf]) {
+      this.drehknopf[Drehknopf] = [];
     }
-    this.events[Drehknopf].push(this.name);
+    this.drehknopf[Drehknopf].push(this.name);
   }
 
-
-  document.addEventListener('Taster', function(event) {
-  console.log('Nachricht:', event.detail.message);
-  });
-  document.addEventListener('Knopf', function(event) {
-  console.log('Nachricht:', event.detail.message);
-  });
-  document.addEventListener('Drehknopf', function(event) {
-    console.log('Nachricht:', event.detail.message);
-  });
 }*/
 
 
@@ -402,9 +394,9 @@ function newElement(){
   let ctx = canvas.getContext('2d');                      //notwendig, um vorgefertigte Methoden im Canvas zu verwenden
   let XposMouse,YposMouse;                               
 
- // Verwendete Canvas-Größe: 1200 * 650
-  var objekts = []; // g einfügen zum zeigen
-  var tasters = [];
+ // Verwendete Canvas-Größe: 1160 * 605
+  var objekts = []; // array für die Buttons und Drehknöpfe 
+  var tasters = []; // array für die Taster
 
   objekts.push(new NormalRotateButton("Triggerlevel",790,240,15, 1, 0, 3,ctx,true,-100,100)); // Triggerlevel Drehknopf
   objekts.push(new NormalRotateButton("Cursors",1060,240,15, 1, 0, 4,ctx,true,-100,100)); //Curser Drehknopf
@@ -430,44 +422,44 @@ function newElement(){
   objekts.push(new AchsenSkalierungButton("K41",1030,465,30, 1, 0,ctx,0,e,10**-3,5,"v",5));// großer Drehknopf Kanal 4
 
   //Horizontal
-  tasters.push(new EckigerTaster("Horizontal",770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));
-  tasters.push(new EckigerTaster("Search",770, 70, 60, 30, ctx, true,"darkgrey","grey","Search"));
-  tasters.push(new EckigerTaster("Navigation",770, 110, 60, 30, ctx, true,"darkgrey","grey","Navigation"));
+  tasters.push(new EckigerTaster("Horizontal",770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));          //Taster für Horizontal
+  tasters.push(new EckigerTaster("Search",770, 70, 60, 30, ctx, true,"darkgrey","grey","Search"));                  //Taster für Search
+  tasters.push(new EckigerTaster("Navigation",770, 110, 60, 30, ctx, true,"darkgrey","grey","Navigation"));         //Taster für Navigation
   //Run Control
-  objekts.push(new EckigerButton("Run Stop",1000, 30, 65, 30, ctx, true,"lightgreen","red","Run Stop"));//
-  objekts.push(new EckigerButton("Single",1085, 30, 65, 30, ctx, true,"darkgrey","yellow","Single"));//
-  tasters.push(new EckigerTaster("Default Setup",1000, 70, 65, 30, ctx, true,"darkgrey","grey","Default Setup"));
-  objekts.push(new EckigerButton("Autoscale",1085, 70, 65, 30, ctx, true,"darkgrey","lightgreen","Autoscale"));//
+  objekts.push(new EckigerButton("Run Stop",1000, 30, 65, 30, ctx, true,"lightgreen","red","Run Stop"));            //Knopf für Run Stop
+  objekts.push(new EckigerButton("Single",1085, 30, 65, 30, ctx, true,"darkgrey","yellow","Single"));               //Knopf für Single
+  tasters.push(new EckigerTaster("Default Setup",1000, 70, 65, 30, ctx, true,"darkgrey","grey","Default Setup"));   //Taster für Default Setup
+  objekts.push(new EckigerButton("Autoscale",1085, 70, 65, 30, ctx, true,"darkgrey","lightgreen","Autoscale"));     //Taster für Autoscale
   //Trigger
-  tasters.push(new EckigerTaster("Trigger",680, 190, 60, 30, ctx, true,"darkgrey","grey","Trigger"));
-  tasters.push(new EckigerTaster("Force Trigger",825, 190, 75, 30, ctx, true,"darkgrey","grey","Force Trigger"));
-  tasters.push(new EckigerTaster("Mode Coupling",825, 240, 75, 30, ctx, true,"darkgrey","grey","Mode Coupling"));
+  tasters.push(new EckigerTaster("Trigger",680, 190, 60, 30, ctx, true,"darkgrey","grey","Trigger"));               //Taster für Trigger
+  tasters.push(new EckigerTaster("Force Trigger",825, 190, 75, 30, ctx, true,"darkgrey","grey","Force Trigger"));   //Taster für Force Trigger
+  tasters.push(new EckigerTaster("Mode Coupling",825, 240, 75, 30, ctx, true,"darkgrey","grey","Mode Coupling"));   //Taster für Modecoupling
   //Measure
-  tasters.push(new EckigerTaster("Cursors",940, 190, 60, 30, ctx, true,"darkgrey","grey","Cursors"));
-  tasters.push(new EckigerTaster("Meas",940, 240, 60, 30, ctx, true,"darkgrey","grey","Meas"));
+  tasters.push(new EckigerTaster("Cursors",940, 190, 60, 30, ctx, true,"darkgrey","grey","Cursors"));               //Taster für die Cursor
+  tasters.push(new EckigerTaster("Meas",940, 240, 60, 30, ctx, true,"darkgrey","grey","Meas"));                     //Taster für Maesure
   //Tools
-  tasters.push(new EckigerTaster("Utility",760, 305, 60, 30, ctx, true,"darkgrey","grey","Utility"));
-  objekts.push(new EckigerButton("Wave Gen",760, 355, 60, 30, ctx, true,"darkgrey","blue","Wave Gen"));//
-  tasters.push(new EckigerTaster("Quick Action",840, 305, 60, 30, ctx, true,"darkgrey","grey","Quick Action"));
-  tasters.push(new EckigerTaster("Analyze",840, 355, 60, 30, ctx, true,"darkgrey","grey","Analyze"));
+  tasters.push(new EckigerTaster("Utility",760, 305, 60, 30, ctx, true,"darkgrey","grey","Utility"));               //Taster für Utility
+  objekts.push(new EckigerButton("Wave Gen",760, 355, 60, 30, ctx, true,"darkgrey","blue","Wave Gen"));             //Knopf für den Wave Generator
+  tasters.push(new EckigerTaster("Quick Action",840, 305, 60, 30, ctx, true,"darkgrey","grey","Quick Action"));     //Taster für die Quick Action
+  tasters.push(new EckigerTaster("Analyze",840, 355, 60, 30, ctx, true,"darkgrey","grey","Analyze"));               //Taster für den Analyzer
   //Waveform
-  tasters.push(new EckigerTaster("Acquire",940, 305, 60, 30, ctx, true,"darkgrey","grey","Acquire"));
-  tasters.push(new EckigerTaster("Display",1050, 305, 60, 30, ctx, true,"darkgrey","grey","Display"));
+  tasters.push(new EckigerTaster("Acquire",940, 305, 60, 30, ctx, true,"darkgrey","grey","Acquire")); 	            //Taster für  Acquire
+  tasters.push(new EckigerTaster("Display",1050, 305, 60, 30, ctx, true,"darkgrey","grey","Display"));              //Taster fürs Display
   //File
-  tasters.push(new EckigerTaster("Save Recall",940, 360, 60, 30, ctx, true,"darkgrey","grey","Save Recall"));
-  tasters.push(new EckigerTaster("Print",1050, 360, 60, 30, ctx, true,"darkgrey","grey","Print"));
+  tasters.push(new EckigerTaster("Save Recall",940, 360, 60, 30, ctx, true,"darkgrey","grey","Save Recall"));       //Taster für Save Recall
+  tasters.push(new EckigerTaster("Print",1050, 360, 60, 30, ctx, true,"darkgrey","grey","Print"));                  //Taster für Print
   //Kanäle
-  objekts.push(new EckigerButton("Kanal 1",720, 520, 20, 30, ctx, true,"lightgrey","yellow","1"));//
-  objekts.push(new EckigerButton("Kanal 2",820, 520, 20, 30, ctx, true,"lightgrey","lightgreen","2"));//
-  objekts.push(new EckigerButton("Kanal 3",920, 520, 20, 30, ctx, true,"lightgrey","lightblue","3"));//
-  objekts.push(new EckigerButton("Kanal 4",1020, 520, 20, 30, ctx, true,"lightgrey","pink","4"));//
+  objekts.push(new EckigerButton("Kanal 1",720, 520, 20, 30, ctx, true,"lightgrey","yellow","1"));                  //Knopf für Kanal 1
+  objekts.push(new EckigerButton("Kanal 2",820, 520, 20, 30, ctx, true,"lightgrey","lightgreen","2"));              //Knopf für Kanal 2
+  objekts.push(new EckigerButton("Kanal 3",920, 520, 20, 30, ctx, true,"lightgrey","lightblue","3"));               //Knopf für Kanal 3
+  objekts.push(new EckigerButton("Kanal 4",1020, 520, 20, 30, ctx, true,"lightgrey","pink","4"));                   //Knopf für Kanal 4
   //Help und Label
-  tasters.push(new EckigerTaster("Label",1090, 450, 60, 30, ctx, true,"darkgrey","grey","Label"));
-  tasters.push(new EckigerTaster("Help",1090, 500, 60, 30, ctx, true,"darkgrey","grey","Help"));
+  tasters.push(new EckigerTaster("Label",1090, 450, 60, 30, ctx, true,"darkgrey","grey","Label"));                  //Taster für Label
+  tasters.push(new EckigerTaster("Help",1090, 500, 60, 30, ctx, true,"darkgrey","grey","Help"));                    //Taster für Help
 
 
-  for (let objekt of objekts) objekt.draw();  // Zeichnet alle pushten Objekte aus dem Array in das Canvas
-  for (let taster of tasters) taster.draw();  // 
+  for (let objekt of objekts) objekt.draw();  // Zeichnet alle gepushten Objekte aus dem Array in das Canvas
+  for (let taster of tasters) taster.draw();  // Zeichnet alle gepushten Taster aus dem Array in das Canvas
 
 
   //Event-Listener
@@ -503,20 +495,21 @@ function newElement(){
       objekt.KeyClick(evt);
     }    
   }
-
+  // Drehknopf wird geklickt
   function DrehknopfKlick (evt){
     for ( let objekt of objekts){
       if( objekt.HasFocus(XposMouse,YposMouse,ctx))
       objekt.Clicked(evt);
     }    
   }
-  //--------- taster funktion-----------
+  //--------- taster funktion -> mousedown -----------
   function mousedown (evt){
     for (let taster of tasters){
       if( taster.HasFocus(XposMouse,YposMouse,ctx))
         taster.mousegedrueckt(evt);
     }
   }
+  //--------- taster funktion -> mouseup -----------
   function mouseup (evt){
     for (let taster of tasters){
       if( taster.HasFocus(XposMouse,YposMouse,ctx))
@@ -524,11 +517,9 @@ function newElement(){
 
       }
   } 
-  
 }
 
-
-
+//---- Anpassung für Einheiten
 function SiPraefix(basis,exponent){
   var siPraefix = ["p","n","µ","m","","K","M","G"];
   var index = Math.floor(exponent/3) + 4;
