@@ -403,10 +403,10 @@ function newElement(){
   objekts.push(new NormalRotateButton("Intesity",715,345,15, 1, 0, 5,ctx,true,-100,100)); //intensity Drehknopf
 
   let a=new AbhängigerButton("H1",900,80,15, 100, 0,ctx,true,"X")//kleiner Drehknopf Horizonzal
-  let b=new AbhängigerButton("K1",730,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 1
-  let c=new AbhängigerButton("K2",830,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 2
-  let d=new AbhängigerButton("K3",930,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 3
-  let e=new AbhängigerButton("K4",1030,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 4
+  let b=new AbhängigerButton("Kanal1",730,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 1
+  let c=new AbhängigerButton("Kanal2",830,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 2
+  let d=new AbhängigerButton("Kanal3",930,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 3
+  let e=new AbhängigerButton("Kanal4",1030,580,15, 100,0,ctx,true,"Y")//kleiner Grehknopf Kanal 4
 
   objekts.push(a);
   objekts.push(b);
@@ -416,10 +416,10 @@ function newElement(){
   
   objekts.push(new AchsenSkalierungButton("H",725,70,30, 1, 0,ctx,0,a,10**-9,50,"s",50)); //großer Drehknopf Horizontal
 
-  objekts.push(new AchsenSkalierungButton("K11",730,465,30, 1, 0,ctx,0,b,10**-3,5,"v",5));// großer Drehknopf Kanal 1
-  objekts.push(new AchsenSkalierungButton("K21",830,465,30, 1, 0,ctx,0,c,10**-3,5,"v",5));// großer Drehknopf Kanal 2
-  objekts.push(new AchsenSkalierungButton("K31",930,465,30, 1, 0,ctx,0,d,10**-3,5,"v",5));// großer Drehknopf Kanal 3
-  objekts.push(new AchsenSkalierungButton("K41",1030,465,30, 1, 0,ctx,0,e,10**-3,5,"v",5));// großer Drehknopf Kanal 4
+  objekts.push(new AchsenSkalierungButton("Kanal11",730,465,30, 1, 0,ctx,0,b,10**-3,5,"v",5));// großer Drehknopf Kanal 1
+  objekts.push(new AchsenSkalierungButton("Kanal21",830,465,30, 1, 0,ctx,0,c,10**-3,5,"v",5));// großer Drehknopf Kanal 2
+  objekts.push(new AchsenSkalierungButton("Kanal31",930,465,30, 1, 0,ctx,0,d,10**-3,5,"v",5));// großer Drehknopf Kanal 3
+  objekts.push(new AchsenSkalierungButton("Kanal41",1030,465,30, 1, 0,ctx,0,e,10**-3,5,"v",5));// großer Drehknopf Kanal 4
 
   //Horizontal
   tasters.push(new EckigerTaster("Horizontal",770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));          //Taster für Horizontal
