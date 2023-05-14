@@ -80,7 +80,7 @@ class RotationTickButton {
     ctx.fillStyle="black";
     ctx.fillRect(-radius,0,radius*2,1.5);
 
-    // Fokuskreis bei Klick
+    // Erkennungskreis bei Klick
     ctx.globalCompositeOperation = 'source-over';
     ctx.beginPath();
     if(this.clicked){ctx.fillStyle = 'black';}
@@ -122,7 +122,7 @@ class NormalRotateButton extends RotationTickButton{
 	onTick(value){
       this.value+=value*this.stepValue;
       if(value == -1){
-        if (this.value >= this.minValue) this.angle-=100;// Mit Uhrzeigersinn drehen
+        if (this.value >= this.minValue) this.angle-=100;// gegen Uhrzeigersinn drehen
         else this.value = this.minValue;
       }
       if (value == 1){
@@ -249,9 +249,9 @@ class AbhängigerButton extends RotationTickButton{
 
   }
 }
-//---------------------------Knöpfe-----------------------------------------
+//--------------------------- Knöpfe -----------------------------------------
 
-class EckigerButton {
+class EckigeDynamischeElemente {
   constructor(name,posX,posY,widthX,widthY,ctx,klickfunktion,fillstyle,fillstyle2,description){
     this.name = name;
     this.posX = posX;
@@ -274,7 +274,10 @@ class EckigerButton {
 
   return this.hasFocus;
   } 
-  //--------------------
+}
+
+class EckigerButton extends EckigeDynamischeElemente{
+  
   Clicked(){
     if(this.klickfunktion == true){
       this.clicked =! this.clicked;
@@ -290,13 +293,13 @@ class EckigerButton {
   
     if(!this.clicked){  
       ctx.fillStyle = fillstyle;
-      console.log(this.name + " Is not clicked")
+      //console.log(this.name + " Is not clicked")
       dispatchEvent(new CustomEvent('Button aus', {detail:{name: this.name,},}));
 
     }
     else{
       ctx.fillStyle = fillstyle2;
-      console.log(this.name + " Is clicked")
+      //console.log(this.name + " Is clicked")
       dispatchEvent(new CustomEvent('Button an', {detail:{name: this.name,},}));
     }
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
@@ -308,36 +311,13 @@ class EckigerButton {
 }
 
 //------------- Taster ----------------
-class EckigerTaster {
-  constructor(name,posX,posY,widthX,widthY,ctx,klickfunktion,fillstyle,fillstyle2,description,color){
-    this.name = name;
-    this.posX = posX;
-    this.posY = posY;
-    this.widthX = widthX;
-    this.widthY = widthY;
-    this.ctx = ctx;
-    this.klickfunktion = klickfunktion;
-    this.fillstyle = fillstyle;
-    this.fillstyle2 = fillstyle2;
-    this.description = description;
-    this.hasFocus = false;
-    this.clicked = false;
-    this.color = false;
-  }
-  //--------------------
-  HasFocus(xmouse,ymouse){
-    let hasFocusOld = this.hasFocus;
-    this.hasFocus=((xmouse >= this.posX && xmouse <= this.posX+this.widthX)
-             &&(ymouse >= this.posY && ymouse <= this.posY+this.widthY));
-    return this.hasFocus;
-  } 
-  //-------------------
+class EckigerTaster extends EckigeDynamischeElemente{
   mousegedrueckt(){
-    this.color = true;
+    this.colorchanged = true;
     this.draw();
   }
   mouseloslassen(){
-    this.color = false;
+    this.colorchanged = false;
     this.draw();
   }
   //------------------------------------------
@@ -347,11 +327,11 @@ class EckigerTaster {
     let fillstyle2=this.fillstyle2;
     ctx.fillStyle = fillstyle;
   
-    if(this.color == true){  
+    if(this.colorchanged == true){  
       ctx.fillStyle = fillstyle2;
       dispatchEvent(new CustomEvent('Taster an', {detail:{name: this.name,},}));
     }
-    if(this.color == false){
+    if(this.colorchanged == false){
       ctx.fillstyle = fillstyle;
       console.log(this.name+ " ist nicht da");
     }
@@ -366,6 +346,7 @@ class EckigerTaster {
 
 
 //-------------------- Sammel Klasse-----------------
+/*
 class events{
   constuctor(){
     this.drehknopf = {};
@@ -377,14 +358,14 @@ class events{
   addEventListener('Button an', (e) => console.log(e.detail.name+ " wurde angeschalten" ));
   addEventListener('Button aus', (e) => console.log(e.detail.name+ " wurde ausgeschaltet" ));
   addEventListener('Drehknopf', (e) => console.log(e.detail.name+ " wurde auf " + e.detail.wert+ " gedreht"));
-}
+*/
 
 
 //NewElement erstellt ein neues Objekt, welches ausgewählt und gedreht werden kann
-function newElement(){
+function newForeground(){
 
   //Erstellen des Canvas-Elements
-  var canvas = document.getElementById('Element1');       //variable canvas holt sich die Canvas Bezeichnung "Element1 aus Newindex.html"
+  var canvas = document.getElementById('Foreground');       //variable canvas holt sich die Canvas Bezeichnung "Element1 aus Newindex.html"
   let ctx = canvas.getContext('2d');                      //notwendig, um vorgefertigte Methoden im Canvas zu verwenden
   let XposMouse,YposMouse;                               
 
@@ -392,7 +373,15 @@ function newElement(){
   var objekts = []; // array für die Buttons und Drehknöpfe 
   var tasters = []; // array für die Taster
 
-  objekts.push(new NormalRotateButton("Triggerlevel",790,240,15, 1, 0, 3,ctx,true,-100,100)); // Triggerlevel Drehknopf
+
+  //objekts.push(new NormalRotateButton(name,posX,posY,radius,stepValue,value, index,ctx,klickfunktion,minValue,maxValue))
+  objekts.push(new NormalRotateButton("Triggerlevel",790,240,15, 1, 0, 3,ctx,true,-100,100));// Triggerlevel Drehknopf
+
+  //tasters.push(new EckigerTaster(name,posX,posY,widthX,widthY,ctx,klickfunktion,fillstyle,fillstyle2,description))
+  tasters.push(new EckigerTaster("Horizontal",770, 30, 60, 30, ctx, true,"darkgrey","grey","Horizontal"));//Taster für Horizontal
+
+
+
   objekts.push(new NormalRotateButton("Cursors",1060,240,15, 1, 0, 4,ctx,true,-100,100)); //Curser Drehknopf
   objekts.push(new NormalRotateButton("Intesity",715,345,15, 1, 0, 5,ctx,true,-100,100)); //intensity Drehknopf
 
