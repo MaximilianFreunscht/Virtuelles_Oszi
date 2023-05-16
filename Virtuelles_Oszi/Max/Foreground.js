@@ -129,7 +129,8 @@ class NormalRotateButton extends RotationTickButton{
         if (this.value <= this.maxValue)this.angle+=100; // Mit Uhrzeigersinn drehen
         else this.value = this.maxValue;
       }
-      console.log(this.name+" Element "+this.index+" Value: "+ this.value) 
+      //console.log(this.name+" Element "+this.index+" Value: "+ this.value) 
+      dispatchEvent(new CustomEvent('Drehknopf', {detail:{name: this.name, index: this.index, value: this.value},}));
   }
 }
 
@@ -153,7 +154,8 @@ class RotateButtonTwoStep extends RotationTickButton{
       if (this.value <= this.maxValue) this.angle+=100;
       else this.value = this.maxValue;
     }
-    console.log(this.name+" Element "+this.index+" Value: "+ this.value)
+    //console.log(this.name+" Element "+this.index+" Value: "+ this.value)
+    dispatchEvent(new CustomEvent('Drehknopf', {detail:{name: this.name, index: this.index, value: this.value},}));
   }
 }
 
@@ -202,7 +204,8 @@ class AchsenSkalierungButton extends RotationTickButton{
       this.Button.StepValue(this.ausgabewert,this.basis);
     }
     let buttonValue = SiPraefix(this.basis,this.exponent);
-    console.log(this.name+" "+buttonValue[0]+buttonValue[1]+this.einheit);
+    //console.log(this.name+" "+buttonValue[0]+buttonValue[1]+this.einheit);
+    dispatchEvent(new CustomEvent('AchsenSkalierungsButton', {detail:{name: this.name, buttonValue0: buttonValue[0], buttonValue1: buttonValue[1], einheit: this.einheit},}));
   
   }
 }
@@ -244,8 +247,8 @@ class AbhängigerButton extends RotationTickButton{
     }
     let bas_ex = GetBasisExponent(this.value);
     let ausgabe = SiPraefix(bas_ex[0],bas_ex[1]);
-    console.log(this.name+" "+ausgabe[0]+ausgabe[1]);
-    dispatchEvent(new CustomEvent('Button aus', {detail:{name: this.name,},}));
+    //console.log(this.name+" "+ausgabe[0]+ausgabe[1]);
+    dispatchEvent(new CustomEvent('AbhängigerButton', {detail:{name: this.name, ausgabe0: ausgabe[0], ausgabe1: ausgabe[1]},}));
 
   }
 }
@@ -294,13 +297,13 @@ class EckigerButton extends EckigeDynamischeElemente{
     if(!this.clicked){  
       ctx.fillStyle = fillstyle;
       //console.log(this.name + " Is not clicked")
-      dispatchEvent(new CustomEvent('Button aus', {detail:{name: this.name,},}));
+      dispatchEvent(new CustomEvent('Button_aus', {detail:{name: this.name,},}));
 
     }
     else{
       ctx.fillStyle = fillstyle2;
       //console.log(this.name + " Is clicked")
-      dispatchEvent(new CustomEvent('Button an', {detail:{name: this.name,},}));
+      dispatchEvent(new CustomEvent('Button_an', {detail:{name: this.name,},}));
     }
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
     ctx.font = "10px Arial";
@@ -329,11 +332,12 @@ class EckigerTaster extends EckigeDynamischeElemente{
   
     if(this.colorchanged == true){  
       ctx.fillStyle = fillstyle2;
-      dispatchEvent(new CustomEvent('Taster an', {detail:{name: this.name,},}));
+      //console.log(this.name+ " wurde betätigt);
+      dispatchEvent(new CustomEvent('Taster', {detail:{name: this.name,},}));
     }
     if(this.colorchanged == false){
       ctx.fillstyle = fillstyle;
-      console.log(this.name+ " ist nicht da");
+      
     }
     
     ctx.fillRect(this.posX,this.posY,this.widthX,this.widthY);
@@ -346,19 +350,17 @@ class EckigerTaster extends EckigeDynamischeElemente{
 
 
 //-------------------- Sammel Klasse-----------------
-/*
-class events{
-  constuctor(){
-    this.drehknopf = {};
-    this.button = {};
-    this.taster = {};
-  }
-  //--------------
-  addEventListener('Taster an', (e) => console.log(e.detail.name+ " wurde gedrückt" ));
-  addEventListener('Button an', (e) => console.log(e.detail.name+ " wurde angeschalten" ));
-  addEventListener('Button aus', (e) => console.log(e.detail.name+ " wurde ausgeschaltet" ));
-  addEventListener('Drehknopf', (e) => console.log(e.detail.name+ " wurde auf " + e.detail.wert+ " gedreht"));
-*/
+
+class Sammelklasse{
+  constructor(){
+  addEventListener('Taster', function(e) {console.log(e.detail.name+ " wurde gedrückt" )});
+  addEventListener('Button_an', function(e) {console.log(e.detail.name+ " wurde angeschalten" )});
+  addEventListener('Button_aus', function(e) {console.log(e.detail.name+ " wurde ausgeschaltet" )});
+  addEventListener('Drehknopf', function(e) {console.log(e.detail.name+ " wurde auf " + e.detail.wert+ " gedreht")});
+  addEventListener('AchsenSkalierungsButton', function(e) {console.log(e.detail.name+" "+ e.detail.buttonValue0+" "+ e.detail.buttonValue1+" "+ e.detail.einheit)});
+  addEventListener('AbhängigerButton', function(e) {console.log(e.detail.name+" "+ e.detail.ausgabe0+ " " +e.detail.ausgabe1)});
+  } 
+}
 
 
 //NewElement erstellt ein neues Objekt, welches ausgewählt und gedreht werden kann
